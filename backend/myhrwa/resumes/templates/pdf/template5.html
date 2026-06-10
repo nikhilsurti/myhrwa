@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<style>
+body{
+  font-family: Arial;
+  margin:0;
+  padding:0;
+  color:#111;
+}
+
+/* LAYOUT */
+.container{
+  display:flex;
+  min-height:100vh;
+}
+
+/* LEFT SIDEBAR */
+.sidebar{
+  width:33%;
+  background:#111827;
+  color:white;
+  padding:25px;
+}
+
+.sidebar h1{
+  font-size:22px;
+  margin-bottom:10px;
+}
+
+.small{
+  font-size:11px;
+  color:#d1d5db;
+  line-height:1.4;
+}
+
+.section{
+  margin-top:20px;
+}
+
+.title{
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+/* RIGHT SIDE */
+.main{
+  width:67%;
+  padding:25px;
+}
+
+.item{
+  margin-bottom:12px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+    <h1>{{ resume.full_name }}</h1>
+
+    <p class="small">{{ resume.email }}</p>
+    <p class="small">{{ resume.phone }}</p>
+
+    {% if resume.summary %}
+      <p class="small" style="margin-top:10px;">
+        {{ resume.summary }}
+      </p>
+    {% endif %}
+
+    <!-- SKILLS -->
+    {% if resume.skills.all %}
+    <div class="section">
+      <div class="title">Skills</div>
+
+      <ul class="small">
+        {% for s in resume.skills.all %}
+          <li>{{ s.name }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <!-- LANGUAGES -->
+    {% if resume.languages.all %}
+    <div class="section">
+      <div class="title">Languages</div>
+
+      {% for l in resume.languages.all %}
+        <p class="small">{{ l.name }}</p>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main">
+
+    <!-- EXPERIENCE -->
+    {% if resume.experiences.all %}
+    <div class="section">
+      <div class="title">Experience</div>
+
+      {% for exp in resume.experiences.all %}
+        <div class="item">
+          <strong>{{ exp.job_title }}</strong><br>
+          <span class="small">{{ exp.company_name }}</span><br>
+          <span class="small">{{ exp.description }}</span>
+        </div>
+      {% endfor %}
+
+    </div>
+    {% endif %}
+
+    <!-- EDUCATION -->
+    {% if resume.educations.all %}
+    <div class="section">
+      <div class="title">Education</div>
+
+      {% for edu in resume.educations.all %}
+        <div class="item">
+          <strong>{{ edu.degree }}</strong><br>
+          <span class="small">{{ edu.school_name }}</span>
+        </div>
+      {% endfor %}
+
+    </div>
+    {% endif %}
+
+    <!-- PROJECTS -->
+    {% if resume.projects.all %}
+    <div class="section">
+      <div class="title">Projects</div>
+
+      {% for p in resume.projects.all %}
+        <div class="item">
+          <strong>{{ p.title }}</strong>
+          <p class="small">{{ p.description }}</p>
+        </div>
+      {% endfor %}
+
+    </div>
+    {% endif %}
+
+    <!-- CERTIFICATIONS -->
+    {% if resume.certifications.all %}
+    <div class="section">
+      <div class="title">Certifications</div>
+
+      {% for c in resume.certifications.all %}
+        <p class="small">• {{ c.name }}</p>
+      {% endfor %}
+
+    </div>
+    {% endif %}
+
+    <!-- ACHIEVEMENTS -->
+    {% if resume.achievements.all %}
+    <div class="section">
+      <div class="title">Achievements</div>
+
+      <ul class="small">
+        {% for a in resume.achievements.all %}
+          <li>{{ a.title }}</li>
+        {% endfor %}
+      </ul>
+
+    </div>
+    {% endif %}
+
+  </div>
+
+</div>
+
+</body>
+</html>

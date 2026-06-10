@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #111;
+    background: #ffffff;
+}
+
+.container {
+    max-width: 21cm;
+    min-height: 29.7cm;
+    margin: auto;
+    padding: 30px;
+}
+
+/* HEADER */
+.header h1 {
+    font-size: 34px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.header p {
+    margin: 6px 0;
+    font-size: 13px;
+    color: #555;
+}
+
+/* SECTION TITLE */
+.section-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    color: #111;
+}
+
+/* ITEM */
+.item {
+    margin-bottom: 12px;
+}
+
+/* SMALL TEXT */
+.small {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.4;
+}
+
+/* BOX STYLE (for product feel sections) */
+.box {
+    border: 1px solid #e5e7eb;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>{{ resume.full_name }}</h1>
+
+        <p>
+            Product Manager
+        </p>
+
+        <p>
+            {{ resume.email }}
+            {% if resume.phone %}
+                | {{ resume.phone }}
+            {% endif %}
+        </p>
+    </div>
+
+    <!-- SUMMARY -->
+    {% if resume.summary %}
+    <div class="section">
+        <div class="section-title">Product Summary</div>
+        <p class="small">{{ resume.summary }}</p>
+    </div>
+    {% endif %}
+
+    <!-- EXPERIENCE -->
+    {% if resume.experiences.all %}
+    <div class="section">
+        <div class="section-title">Product Experience</div>
+
+        {% for exp in resume.experiences.all %}
+        <div class="box">
+            <strong>{{ exp.role }}</strong>
+            <p class="small">{{ exp.company }}</p>
+            <p class="small">{{ exp.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- PROJECTS -->
+    {% if resume.projects.all %}
+    <div class="section">
+        <div class="section-title">Key Products</div>
+
+        {% for project in resume.projects.all %}
+        <div class="box">
+            <strong>{{ project.title }}</strong>
+            <p class="small">{{ project.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- EDUCATION -->
+    {% if resume.educations.all %}
+    <div class="section">
+        <div class="section-title">Education</div>
+
+        {% for edu in resume.educations.all %}
+        <div class="item">
+            <strong>{{ edu.degree }}</strong>
+            <p class="small">{{ edu.school }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- SKILLS -->
+    {% if resume.skills.all %}
+    <div class="section">
+        <div class="section-title">Skills</div>
+
+        <p class="small">
+            {% for skill in resume.skills.all %}
+                {{ skill.name }}{% if not forloop.last %} • {% endif %}
+            {% endfor %}
+        </p>
+    </div>
+    {% endif %}
+
+    <!-- CERTIFICATIONS -->
+    {% if resume.certifications.all %}
+    <div class="section">
+        <div class="section-title">Certifications</div>
+
+        {% for cert in resume.certifications.all %}
+        <p class="small">• {{ cert.name }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- ACHIEVEMENTS -->
+    {% if resume.achievements.all %}
+    <div class="section">
+        <div class="section-title">Achievements</div>
+
+        <ul class="small">
+            {% for item in resume.achievements.all %}
+                <li>{{ item.title }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <!-- LANGUAGES -->
+    {% if resume.languages.all %}
+    <div class="section">
+        <div class="section-title">Languages</div>
+
+        <p class="small">
+            {% for lang in resume.languages.all %}
+                {{ lang.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </p>
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

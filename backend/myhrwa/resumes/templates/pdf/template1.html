@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8">
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    color:#111;
+    padding:30px;
+    line-height:1.5;
+}
+
+.header{
+    border-bottom:2px solid #ddd;
+    padding-bottom:15px;
+    margin-bottom:20px;
+}
+
+h1{
+    margin:0;
+    font-size:30px;
+}
+
+.section{
+    margin-bottom:20px;
+}
+
+.section-title{
+    font-size:18px;
+    font-weight:bold;
+    border-bottom:1px solid #ccc;
+    padding-bottom:5px;
+    margin-bottom:10px;
+}
+
+.item{
+    margin-bottom:12px;
+}
+
+.small{
+    font-size:12px;
+    color:#666;
+}
+
+.skill{
+    display:inline-block;
+    border:1px solid #aaa;
+    padding:4px 8px;
+    margin:3px;
+    font-size:12px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="header">
+    <h1>{{ resume.full_name }}</h1>
+
+```
+<p>
+    {{ resume.email }}
+    {% if resume.phone %}
+    | {{ resume.phone }}
+    {% endif %}
+</p>
+```
+
+</div>
+
+{% if resume.summary %}
+
+<div class="section">
+    <div class="section-title">
+        Professional Summary
+    </div>
+
+```
+<p>{{ resume.summary }}</p>
+```
+
+</div>
+{% endif %}
+
+{% if resume.experiences.all %}
+
+<div class="section">
+    <div class="section-title">
+        Experience
+    </div>
+
+```
+{% for exp in resume.experiences.all %}
+<div class="item">
+
+    <strong>{{ exp.job_title }}</strong>
+
+    <br>
+
+    {{ exp.company_name }}
+
+    <br>
+
+    <span class="small">
+        {{ exp.start_date }}
+
+        {% if exp.currently_working %}
+            - Present
+        {% else %}
+            - {{ exp.end_date }}
+        {% endif %}
+    </span>
+
+    {% if exp.description %}
+    <p>{{ exp.description }}</p>
+    {% endif %}
+
+</div>
+{% endfor %}
+```
+
+</div>
+{% endif %}
+
+{% if resume.educations.all %}
+
+<div class="section">
+    <div class="section-title">
+        Education
+    </div>
+
+```
+{% for edu in resume.educations.all %}
+<div class="item">
+
+    <strong>{{ edu.degree }}</strong>
+
+    {% if edu.field_of_study %}
+    - {{ edu.field_of_study }}
+    {% endif %}
+
+    <br>
+
+    {{ edu.school_name }}
+
+    <br>
+
+    <span class="small">
+        {{ edu.start_date }} - {{ edu.end_date }}
+    </span>
+
+</div>
+{% endfor %}
+```
+
+</div>
+{% endif %}
+
+{% if resume.skills.all %}
+
+<div class="section">
+    <div class="section-title">
+        Skills
+    </div>
+
+```
+{% for skill in resume.skills.all %}
+<span class="skill">
+    {{ skill.name }}
+</span>
+{% endfor %}
+```
+
+</div>
+{% endif %}
+
+{% if resume.projects.all %}
+
+<div class="section">
+    <div class="section-title">
+        Projects
+    </div>
+
+```
+{% for project in resume.projects.all %}
+<div class="item">
+
+    <strong>{{ project.title }}</strong>
+
+    {% if project.description %}
+    <p>{{ project.description }}</p>
+    {% endif %}
+
+    {% if project.project_link %}
+    <p>{{ project.project_link }}</p>
+    {% endif %}
+
+</div>
+{% endfor %}
+```
+
+</div>
+{% endif %}
+
+{% if resume.certifications.all %}
+
+<div class="section">
+    <div class="section-title">
+        Certifications
+    </div>
+
+```
+{% for cert in resume.certifications.all %}
+<p>
+    {{ cert.name }} - {{ cert.organization }}
+</p>
+{% endfor %}
+```
+
+</div>
+{% endif %}
+
+{% if resume.languages.all %}
+
+<div class="section">
+    <div class="section-title">
+        Languages
+    </div>
+
+```
+{% for lang in resume.languages.all %}
+<p>{{ lang.name }}</p>
+{% endfor %}
+```
+
+</div>
+{% endif %}
+
+{% if resume.achievements.all %}
+
+<div class="section">
+    <div class="section-title">
+        Achievements
+    </div>
+
+```
+<ul>
+    {% for item in resume.achievements.all %}
+    <li>{{ item.title }}</li>
+    {% endfor %}
+</ul>
+```
+
+</div>
+{% endif %}
+
+</body>
+</html>

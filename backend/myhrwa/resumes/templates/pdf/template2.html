@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Resume</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 32%;
+      background: #1e293b;
+      color: white;
+      padding: 20px;
+    }
+
+    /* Main */
+    .main {
+      width: 68%;
+      padding: 25px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+
+    h2 {
+      font-size: 16px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+      margin-top: 20px;
+    }
+
+    .small {
+      font-size: 12px;
+    }
+
+    .box {
+      margin-bottom: 15px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+    <h1>{{ resume.full_name }}</h1>
+
+    <p class="small">{{ resume.title }}</p>
+
+    <div class="box">
+      <h2>Contact</h2>
+
+      <p class="small">{{ resume.email }}</p>
+      <p class="small">{{ resume.phone }}</p>
+      <p class="small">{{ resume.location }}</p>
+    </div>
+
+    <div class="box">
+      <h2>Skills</h2>
+      <ul>
+        {% for skill in resume.skills.all %}
+          <li class="small">{{ skill.name }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="box">
+      <h2>Languages</h2>
+      {% for lang in resume.languages.all %}
+        <p class="small">{{ lang.name }}</p>
+      {% endfor %}
+    </div>
+
+    <div class="box">
+      <h2>Certifications</h2>
+      {% for cert in resume.certifications.all %}
+        <p class="small">{{ cert.name }}</p>
+      {% endfor %}
+    </div>
+
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <div class="box">
+      <h2>Summary</h2>
+      <p class="small">{{ resume.summary }}</p>
+    </div>
+
+    <div class="box">
+      <h2>Experience</h2>
+
+      {% for exp in resume.experiences.all %}
+        <div class="box">
+          <strong>{{ exp.role }}</strong>
+          <p class="small">{{ exp.company }}</p>
+          <p class="small">{{ exp.start_date }} - {{ exp.end_date }}</p>
+          <p class="small">{{ exp.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="box">
+      <h2>Education</h2>
+
+      {% for edu in resume.educations.all %}
+        <div class="box">
+          <strong>{{ edu.degree }}</strong>
+          <p class="small">{{ edu.school }}</p>
+          <p class="small">{{ edu.start_date }} - {{ edu.end_date }}</p>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="box">
+      <h2>Projects</h2>
+
+      {% for project in resume.projects.all %}
+        <div class="box">
+          <strong>{{ project.title }}</strong>
+          <p class="small">{{ project.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="box">
+      <h2>Achievements</h2>
+
+      {% for ach in resume.achievements.all %}
+        <p class="small">{{ ach.title }}</p>
+      {% endfor %}
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
