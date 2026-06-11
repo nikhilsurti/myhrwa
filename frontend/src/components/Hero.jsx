@@ -136,14 +136,14 @@ export default function Hero({ onCreateResume }) {
 
             {/* <div className="flex flex-col sm:flex-row gap-4 mt-10"> */}
             <div className="flex flex-col sm:flex-row gap-3 mt-6">
-              <button className="px-8 py-4 rounded-2xl bg-blue-600 text-white font-bold hover:bg-blue-700 transition">
+              {/* <button className="px-8 py-4 rounded-2xl bg-blue-600 text-white font-bold hover:bg-blue-700 transition">
                 Find Jobs
-              </button>
+              </button> */}
 
               {/* <button className="px-8 py-4 rounded-2xl border border-slate-300 font-bold text-slate-700 hover:bg-slate-50 transition">
                 Hire Talent
               </button> */}
-            <button onClick={onCreateResume}className="px-8 py-4 rounded-2xl border border-slate-300 font-bold text-slate-700 hover:bg-slate-50 transition">Build Resume</button>
+            {/* <button onClick={onCreateResume}className="px-8 py-4 rounded-2xl border border-slate-300 font-bold text-slate-700 hover:bg-slate-50 transition">Build Resume</button> */}
             </div>
 
             {/* <div className="flex flex-wrap gap-8 mt-10"> */}

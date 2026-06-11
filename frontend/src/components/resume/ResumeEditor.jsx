@@ -26,6 +26,9 @@ import SkillsForm from "./ResumeForms/SkillsForm";
 import CertificationForm from "./ResumeForms/CertificationForm";
 import ProjectForm from "./ResumeForms/ProjectForm";
 import ExtraForm from "./ResumeForms/ExtraForm";
+import logoHR09 from "../../assets/company-logos/LOGO HR-09.png";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../../firebase";
 
 import Template01 from "./Templates/Template01";
 import Template02 from "./Templates/Template02";
@@ -360,32 +363,67 @@ useEffect(() => {
     description: "",
   })),
 
-  experiences: resumeData.experiences.map((exp) => ({
+  experiences: resumeData.experiences
+  .filter(
+    (exp) =>
+      exp.company?.trim() &&
+      exp.role?.trim() &&
+      exp.startDate
+  )
+  .map((exp) => ({
     company_name: exp.company,
     job_title: exp.role,
     start_date: exp.startDate,
-    end_date: exp.endDate,
+    end_date: exp.endDate || null,
     currently_working: exp.currentCompany,
     description: exp.desc,
   })),
+  // experiences: resumeData.experiences.map((exp) => ({
+  //   company_name: exp.company,
+  //   job_title: exp.role,
+  //   start_date: exp.startDate,
+  //   end_date: exp.endDate,
+  //   currently_working: exp.currentCompany,
+  //   description: exp.desc,
+  // })),
 
   skills: resumeData.skills.map((skill) => ({
     name: skill,
   })),
 
-  projects: resumeData.projects.map((proj) => ({
+  projects: resumeData.projects
+  .filter((proj) => proj.title?.trim())
+  .map((proj) => ({
     title: proj.title,
     description: proj.description,
-    project_link: proj.link,
-    github_link: "",
+    // project_link: proj.link,
+    // github_link: "",
   })),
+  // projects: resumeData.projects.map((proj) => ({
+  //   title: proj.title,
+  //   description: proj.description,
+  //   project_link: proj.link,
+  //   github_link: "",
+  // })),
 
-  certifications: resumeData.certifications.map((cert) => ({
+  certifications: resumeData.certifications
+  .filter(
+    (cert) =>
+      cert.name?.trim() &&
+      cert.issuer?.trim()
+  )
+  .map((cert) => ({
     name: cert.name,
     organization: cert.issuer,
-    issue_date: cert.date,
+    issue_date: cert.date || null,
     credential_url: cert.link,
   })),
+  // certifications: resumeData.certifications.map((cert) => ({
+  //   name: cert.name,
+  //   organization: cert.issuer,
+  //   issue_date: cert.date,
+  //   credential_url: cert.link,
+  // })),
 
   languages: resumeData.languages.map((lang) => ({
     name: lang,
@@ -743,6 +781,34 @@ const handleRegister = async (e) => {
     alert("Registration Failed");
   }
 };
+const handleGoogleLogin = async () => {
+  try {
+    const result = await signInWithPopup(auth, provider);
+
+    const res = await API.post("/accounts/google-login/", {
+      email: result.user.email,
+      name: result.user.displayName,
+    });
+
+    localStorage.setItem("token", res.data.access);
+    localStorage.setItem("refresh", res.data.refresh);
+    localStorage.setItem("name", result.user.displayName);
+
+    setShowAuthModal(false);
+
+    alert(`Welcome ${result.user.displayName}`);
+
+    setTimeout(() => {
+      downloadPDF();
+    }, 300);
+
+  } catch (error) {
+    console.error(error);
+    alert("Google Login Failed");
+  }
+};
+
+
 // const downloadPDF = () => {
 //   const token = localStorage.getItem("token");
 
@@ -926,11 +992,25 @@ const downloadPDF = async () => {
           </button>
           
           <div className="h-px bg-slate-200 w-4 hidden md:block"></div>
-
+          
           <div className="flex items-center gap-2">
+  <img
+    src={logoHR09}
+    alt="MyHRWA Logo"
+    className="h-16 w-auto object-contain"
+  />
+
+  {/* <span className="font-extrabold text-sm text-slate-900">
+    MyHRWA
+    <span className="text-blue-600 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-blue-50">
+      Builder
+    </span>
+  </span> */}
+</div>
+          {/* <div className="flex items-center gap-2">
             <div className="h-8 w-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-white text-base">M</div>
             <span className="font-extrabold text-sm text-slate-900">MyHRWA <span className="text-blue-600 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-blue-50">Builder</span></span>
-          </div>
+          </div> */}
         </div>
 
         {/* Templates Selector Dropdown */}
@@ -1585,10 +1665,43 @@ const downloadPDF = async () => {
   <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999]">
     <div className="bg-white w-full max-w-md rounded-2xl p-6 shadow-xl">
 
-      <h2 className="text-2xl font-bold mb-4">
+      {/* <h2 className="text-2xl font-bold mb-4">
         {isLogin ? "Login" : "Create Account"}
-      </h2>
+      </h2> */}
 
+      <h2 className="text-2xl font-bold mb-4">
+  {isLogin ? "Login" : "Create Account"}
+</h2>
+
+<button
+  onClick={handleGoogleLogin}
+  type="button"
+  className="w-full border border-slate-300 py-3 rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-slate-50"
+>
+  <img
+    src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+    alt="Google"
+    className="w-5 h-5"
+  />
+  Continue with Google
+</button>
+
+<div className="relative my-4">
+  <div className="absolute inset-0 flex items-center">
+    <div className="w-full border-t"></div>
+  </div>
+
+  <div className="relative flex justify-center text-sm">
+    <span className="bg-white px-3 text-slate-500">
+      OR
+    </span>
+  </div>
+</div>
+
+<form
+  onSubmit={isLogin ? handleLogin : handleRegister}
+  className="space-y-4"
+></form>
       <form
         onSubmit={isLogin ? handleLogin : handleRegister}
         className="space-y-4"

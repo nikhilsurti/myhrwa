@@ -31,3 +31,40 @@ class ProfileView(APIView):
         }
 
         return Response(data)
+    
+
+
+
+from rest_framework_simplejwt.tokens import RefreshToken
+
+class GoogleLoginView(APIView):
+
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+
+        email = request.data.get("email")
+        name = request.data.get("name")
+
+        if not email:
+            return Response(
+                {"error": "Email is required"},
+                status=400
+            )
+
+        user, created = User.objects.get_or_create(
+            email=email,
+            defaults={
+                "username": email,
+                "first_name": name or ""
+            }
+        )
+
+        refresh = RefreshToken.for_user(user)
+
+        return Response({
+            "access": str(refresh.access_token),
+            "refresh": str(refresh),
+            "username": user.username,
+            "email": user.email,
+        })

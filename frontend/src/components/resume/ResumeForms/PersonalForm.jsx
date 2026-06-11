@@ -142,7 +142,7 @@ export default function PersonalForm({
         />
 
         {/* Buttons */}
-        <div className="space-y-3 mt-3">
+        {/* <div className="space-y-3 mt-3">
           <div className="flex gap-2">
             <button
               type="button"
@@ -174,7 +174,7 @@ export default function PersonalForm({
               </p>
             </div>
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );

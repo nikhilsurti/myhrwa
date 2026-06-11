@@ -284,11 +284,11 @@ export default function ProjectForm({
           </div>
 
           {/* Link */}
-          <div>
-            <label className="text-[10px] font-bold text-slate-400 uppercase">
+          {/* <div> */}
+            {/* <label className="text-[10px] font-bold text-slate-400 uppercase">
               Project Link
-            </label>
-            <input
+            </label> */}
+            {/* <input
   type="url"
   value={project.link}
   onChange={(e) =>
@@ -296,7 +296,7 @@ export default function ProjectForm({
   }
   placeholder="https://example.com"
   className="w-full px-3 py-1.5 border rounded text-xs"
-/>
+/> */}
             {/* <input
               type="text"
               value={project.link}
@@ -306,7 +306,7 @@ export default function ProjectForm({
               className="w-full px-3 py-1.5 border border-slate-200 rounded-lg text-xs"
               placeholder="GitHub / Live URL"
             /> */}
-          </div>
+          {/* </div> */}
         </div>
       ))}
     </div>

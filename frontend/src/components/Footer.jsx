@@ -601,6 +601,7 @@
 
 
 import React from "react";
+import logoHR08 from "../assets/company-logos/LOGO HR-08.png";
 
 export default function Footer() {
   return (
@@ -617,14 +618,15 @@ export default function Footer() {
 
             <div className="flex items-center gap-3">
 
-              <div className="h-12 w-12 rounded-xl bg-blue-600 flex items-center justify-center">
+              <img src={logoHR08}alt="MyHRWA Logo"className="h-14 w-auto object-contain"/>
+              {/* <div className="h-12 w-12 rounded-xl bg-blue-600 flex items-center justify-center">
                 <span className="text-white font-black text-xl">M</span>
-              </div>
+              </div> */}
 
               <div>
-                <h2 className="text-2xl font-extrabold text-white">
+                {/* <h2 className="text-2xl font-extrabold text-white">
                   MyHRWA
-                </h2>
+                </h2> */}
 
                 <p className="text-sm text-slate-500">
                   Consulting Group
@@ -752,7 +754,7 @@ export default function Footer() {
 
               <li>contact@myhrwa.com</li>
 
-              <li>+91 099200 57773</li>
+              <li>+91 99200 57773</li>
 
               <li>
                 Ground Floor, Hema Apartment, Shop No. 4,

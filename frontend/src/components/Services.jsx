@@ -107,6 +107,7 @@ import {
   FaFileAlt,
   FaRocket,
   FaBullseye,
+  FaSearch,
 } from "react-icons/fa";
 
 const services = [
@@ -134,18 +135,18 @@ const services = [
       "Create ATS-friendly resumes that increase your chances of getting shortlisted.",
     icon: FaFileAlt,
   },
-  {
-    title: "Career Guidance",
-    description:
-      "Professional career consulting, interview preparation and job search support.",
-    icon: FaRocket,
-  },
   // {
-  //   title:  "Headhunting Services",
+  //   title: "Career Guidance",
   //   description:
-  //      "We proactively identify and engage highly qualified professionals for specialized and leadership positions.",
-  //   icon:FaSearch,
+  //     "Professional career consulting, interview preparation and job search support.",
+  //   icon: FaRocket,
   // },
+  {
+    title:  "Headhunting Services",
+    description:
+       "We proactively identify and engage highly qualified professionals for specialized and leadership positions.",
+    icon:  FaSearch
+  },
   {
     title: "Talent Acquisition",
     description:
