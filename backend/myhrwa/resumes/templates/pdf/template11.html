@@ -124,7 +124,32 @@ body {
     {% endif %}
 
     <!-- EXPERIENCE -->
-    {% if resume.experiences.all %}
+    
+    {% for exp in resume.experiences.all %}
+<div class="item">
+
+    <strong>{{ exp.job_title }}</strong>
+
+    <p class="small">
+        {{ exp.company_name }}
+    </p>
+
+    <p class="small">
+        {{ exp.start_date }} -
+        {% if exp.currently_working %}
+            Present
+        {% else %}
+            {{ exp.end_date }}
+        {% endif %}
+    </p>
+
+    <p class="small">
+        {{ exp.description }}
+    </p>
+
+</div>
+{% endfor %}
+    <!-- {% if resume.experiences.all %}
     <div class="section">
         <div class="section-title">Leadership Experience</div>
 
@@ -136,7 +161,7 @@ body {
         </div>
         {% endfor %}
     </div>
-    {% endif %}
+    {% endif %} -->
 
     <!-- EDUCATION -->
     {% if resume.educations.all %}

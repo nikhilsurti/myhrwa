@@ -144,7 +144,9 @@ export default function Template06({ data }) {
           </p>
         </section>
       )}
+      
 
+      
       {/* Experience */}
       {experiences.length > 0 && (
         <section className="mb-6">
@@ -152,15 +154,29 @@ export default function Template06({ data }) {
             Experience
           </h2>
 
-          {experiences.map((exp) => (
-            <div key={exp.id} className="mb-4">
-              <h3 className="font-semibold">{exp.role}</h3>
-              <p className="text-sm text-gray-700">{exp.company}</p>
-              <p className="text-sm">{exp.desc}</p>
-            </div>
+         
+         {experiences.map((exp) => (
+  <div key={exp.id} className="mb-4">
+    <h3 className="font-semibold">{exp.role}</h3>
+
+    <p className="text-sm text-gray-700">
+      {exp.company}
+    </p>
+
+    <p className="text-xs text-gray-500">
+      {exp.currentCompany
+        ? `${exp.startDate} - Present`
+        : `${exp.startDate} - ${exp.endDate}`}
+    </p>
+
+    <p className="text-sm">
+      {exp.desc}
+    </p>
+  </div>
+          
           ))}
         </section>
-      )}
+      )} 
 
       {/* Education */}
       {educations.length > 0 && (

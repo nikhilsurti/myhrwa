@@ -96,8 +96,31 @@ body{
   </div>
   {% endif %}
 
+
+  {% for exp in resume.experiences.all %}
+  <div class="item">
+    <strong>{{ exp.job_title }}</strong><br>
+
+    <span class="small">
+      {{ exp.company_name }}
+    </span><br>
+
+    <span class="small">
+      {{ exp.start_date }} -
+      {% if exp.currently_working %}
+        Present
+      {% else %}
+        {{ exp.end_date }}
+      {% endif %}
+    </span><br>
+
+    <span class="small">
+      {{ exp.description }}
+    </span>
+  </div>
+{% endfor %}
   <!-- EXPERIENCE -->
-  {% if resume.experiences.all %}
+  <!-- {% if resume.experiences.all %}
   <div class="section">
     <div class="title">Professional Experience</div>
 
@@ -107,7 +130,7 @@ body{
         <span class="small">{{ exp.company_name }}</span><br>
         <span class="small">{{ exp.description }}</span>
       </div>
-    {% endfor %}
+    {% endfor %} -->
 
   </div>
   {% endif %}

@@ -100,7 +100,26 @@ h1{
 </div>
 {% endif %}
 
-<!-- EXPERIENCE -->
+
+{% for exp in resume.experiences.all %}
+  <div class="item">
+    <strong>{{ exp.job_title }}</strong><br>
+
+    {{ exp.company_name }}<br>
+
+    <span class="small">
+      {{ exp.start_date }} -
+      {% if exp.currently_working %}
+        Present
+      {% else %}
+        {{ exp.end_date }}
+      {% endif %}
+    </span>
+
+    <p class="small">{{ exp.description }}</p>
+  </div>
+{% endfor %}
+<!-- EXPERIENCE
 {% if resume.experiences.all %}
 <div class="section">
   <div class="section-title">Experience</div>
@@ -111,7 +130,7 @@ h1{
       {{ exp.company_name }}<br>
       <p class="small">{{ exp.description }}</p>
     </div>
-  {% endfor %}
+  {% endfor %} -->
 
 </div>
 {% endif %}

@@ -119,27 +119,37 @@ export default function Template15({ data }) {
       )}
 
       {/* Experience */}
-      {experiences.length > 0 && (
+      
+      
+       {experiences.length > 0 && (
         <section className="mb-8">
 
           <h2 className="text-yellow-700 text-2xl font-serif mb-3">
             Experience
           </h2>
+        {experiences.map((exp) => (
+  <div key={exp.id} className="mb-4">
+    <strong>{exp.role}</strong>
 
-          {experiences.map((exp) => (
-            <div key={exp.id} className="mb-4">
-              <strong>{exp.role}</strong>
-              <p className="text-sm text-gray-700">
-                {exp.company}
-              </p>
-              <p className="text-sm mt-1">
-                {exp.desc}
-              </p>
-            </div>
-          ))}
+    <p className="text-sm text-gray-700">
+      {exp.company}
+    </p>
+
+    <p className="text-xs text-gray-500">
+      {exp.currentCompany
+        ? `${exp.startDate} - Present`
+        : `${exp.startDate} - ${exp.endDate}`}
+    </p>
+
+    <p className="text-sm mt-1">
+      {exp.desc}
+    </p>
+  </div>
+))}
+          
 
         </section>
-      )}
+      )} 
 
       {/* Education */}
       {educations.length > 0 && (

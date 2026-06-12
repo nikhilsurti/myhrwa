@@ -153,25 +153,36 @@ export default function Template12({ data }) {
       )}
 
       {/* Experience (added) */}
-      {experiences.length > 0 && (
+      
+    
+       {experiences.length > 0 && (
         <div className="mt-8">
           <h2 className="text-pink-700 text-2xl font-bold">
             Experience
           </h2>
+        {experiences.map((exp) => (
+  <div key={exp.id} className="mt-4">
+    <strong>{exp.role}</strong>
 
-          {experiences.map((exp) => (
-            <div key={exp.id} className="mt-4">
-              <strong>{exp.role}</strong>
-              <p className="text-sm text-gray-700">
-                {exp.company}
-              </p>
-              <p className="text-sm">
-                {exp.desc}
-              </p>
-            </div>
-          ))}
+    <p className="text-sm text-gray-700">
+      {exp.company}
+    </p>
+
+    <p className="text-xs text-gray-500">
+      {exp.currentCompany
+        ? `${exp.startDate} - Present`
+        : `${exp.startDate} - ${exp.endDate}`}
+    </p>
+
+    <p className="text-sm">
+      {exp.desc}
+    </p>
+  </div>
+))}
+
+          
         </div>
-      )}
+      )} 
 
       {/* Education */}
       {educations.length > 0 && (

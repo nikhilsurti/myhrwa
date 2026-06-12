@@ -109,6 +109,31 @@
       <h2>Experience</h2>
 
       {% for exp in resume.experiences.all %}
+<div class="box">
+
+  <strong>{{ exp.job_title }}</strong>
+
+  <p class="small">
+    {{ exp.company_name }}
+  </p>
+
+  <p class="small">
+    {{ exp.start_date }} -
+
+    {% if exp.currently_working %}
+      Present
+    {% else %}
+      {{ exp.end_date }}
+    {% endif %}
+  </p>
+
+  <p class="small">
+    {{ exp.description }}
+  </p>
+
+</div>
+{% endfor %}
+      <!-- {% for exp in resume.experiences.all %}
         <div class="box">
           <strong>{{ exp.role }}</strong>
           <p class="small">{{ exp.company }}</p>
@@ -116,7 +141,7 @@
           <p class="small">{{ exp.description }}</p>
         </div>
       {% endfor %}
-    </div>
+    </div> -->
 
     <div class="box">
       <h2>Education</h2>

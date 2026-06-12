@@ -184,29 +184,38 @@ export default function Template08({ data }) {
       )}
 
       {/* Experience */}
-      {experiences.length > 0 && (
+      
+      
+       {experiences.length > 0 && (
         <section className="mb-8">
           <h2 className="text-cyan-700 text-xl font-bold mb-3">
             Experience
           </h2>
+         {experiences.map((exp) => (
+  <div key={exp.id} className="mb-4">
+    <h3 className="font-semibold">
+      {exp.role}
+    </h3>
 
-          {experiences.map((exp) => (
-            <div key={exp.id} className="mb-4">
-              <h3 className="font-semibold">
-                {exp.role}
-              </h3>
+    <p className="text-sm text-gray-700">
+      {exp.company}
+    </p>
 
-              <p className="text-sm text-gray-700">
-                {exp.company}
-              </p>
+    <p className="text-xs text-gray-500">
+      {exp.currentCompany
+        ? `${exp.startDate} - Present`
+        : `${exp.startDate} - ${exp.endDate}`}
+    </p>
 
-              <p className="text-sm">
-                {exp.desc}
-              </p>
-            </div>
-          ))}
+    <p className="text-sm">
+      {exp.desc}
+    </p>
+  </div>
+))}
+          
+          
         </section>
-      )}
+      )} 
 
       {/* Education */}
       {educations.length > 0 && (

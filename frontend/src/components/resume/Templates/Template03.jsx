@@ -145,19 +145,29 @@ export default function Template03({ data }) {
         </section>
       )}
 
+      
+      
       {/* Experience */}
       {experiences.length > 0 && (
         <section className="mb-5">
           <h2 className="uppercase font-bold border-b mb-2">
             Experience
           </h2>
+        {experiences.map((exp) => (
+  <div key={exp.id} className="mb-3">
+    <strong>{exp.role}</strong>
 
-          {experiences.map((exp) => (
-            <div key={exp.id} className="mb-3">
-              <strong>{exp.role}</strong>
-              <p>{exp.company}</p>
-              <p className="text-sm">{exp.desc}</p>
-            </div>
+    <p>{exp.company}</p>
+
+    <p className="text-xs text-gray-600">
+      {exp.currentCompany
+        ? `${exp.startDate} - Present`
+        : `${exp.startDate} - ${exp.endDate}`}
+    </p>
+
+    <p className="text-sm">{exp.desc}</p>
+  </div>
+         
           ))}
         </section>
       )}
