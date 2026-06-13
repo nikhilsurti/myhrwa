@@ -12,6 +12,8 @@ achievements = [],
 languages = [],
 } = data;
 
+console.log("LANGUAGES =", languages);
+console.log("ACHIEVEMENTS =", achievements);
 return ( <div className="bg-white text-black w-full max-w-[21cm] min-h-[29.7cm] mx-auto p-10">
 
 
@@ -69,7 +71,17 @@ return ( <div className="bg-white text-black w-full max-w-[21cm] min-h-[29.7cm] 
           <p className="font-medium text-sm">
             {exp.company}
           </p>
+         {exp.location && (
+  <p className="text-xs text-gray-500">
+    📍 {exp.location}
+  </p>
+)}
 
+{exp.employmentType && (
+  <p className="text-xs text-gray-500">
+    {exp.employmentType}
+  </p>
+)}
           <p className="text-sm whitespace-pre-line mt-1">
             {exp.desc}
           </p>
@@ -138,7 +150,28 @@ return ( <div className="bg-white text-black w-full max-w-[21cm] min-h-[29.7cm] 
         Projects
       </h2>
 
+      
       {projects.map((project) => (
+  <div key={project.id} className="mb-3">
+
+    <h3 className="font-semibold">
+      {project.title}
+    </h3>
+
+    <p className="text-sm">
+      {project.description}
+    </p>
+
+    {(project.startDate || project.endDate) && (
+      <p className="text-xs text-gray-500 mt-1">
+        {project.startDate}
+        {project.endDate && ` - ${project.endDate}`}
+      </p>
+    )}
+
+  </div>
+))}
+      {/* {projects.map((project) => (
         <div key={project.id} className="mb-3">
           <h3 className="font-semibold">
             {project.title}
@@ -159,7 +192,7 @@ return ( <div className="bg-white text-black w-full max-w-[21cm] min-h-[29.7cm] 
             </a>
           )}
         </div>
-      ))}
+      ))} */}
     </section>
   )}
 
@@ -170,18 +203,46 @@ return ( <div className="bg-white text-black w-full max-w-[21cm] min-h-[29.7cm] 
         Certifications
       </h2>
 
+      
       {certifications.map((cert) => (
+  <div key={cert.id} className="mb-2">
+
+    <p className="text-sm font-medium">
+      {cert.name}
+    </p>
+
+    {cert.issuer && (
+      <p className="text-xs text-gray-600">
+        {cert.issuer}
+      </p>
+    )}
+
+    {cert.date && (
+      <p className="text-xs text-gray-500">
+        {cert.date}
+      </p>
+    )}
+
+    {cert.link && (
+      <p className="text-xs break-all text-blue-600">
+        {cert.link}
+      </p>
+    )}
+
+  </div>
+))}
+      {/* {certifications.map((cert) => (
         <div key={cert.id}>
           <p className="text-sm">
             {cert.name}
           </p>
         </div>
-      ))}
+      ))} */}
     </section>
   )}
 
   {/* Languages */}
-  {languages.length > 0 && (
+  {/* {languages.length > 0 && (
     <section className="mb-5">
       <h2 className="font-bold text-lg border-b mb-2">
         Languages
@@ -198,10 +259,10 @@ return ( <div className="bg-white text-black w-full max-w-[21cm] min-h-[29.7cm] 
         ))}
       </div>
     </section>
-  )}
+  )} */}
 
   {/* Achievements */}
-  {achievements.length > 0 && (
+  {/* {achievements.length > 0 && (
     <section>
       <h2 className="font-bold text-lg border-b mb-2">
         Achievements
@@ -215,7 +276,45 @@ return ( <div className="bg-white text-black w-full max-w-[21cm] min-h-[29.7cm] 
         ))}
       </ul>
     </section>
-  )}
+  )} */}
+
+{/* Languages */}
+{languages.length > 0 && (
+  <section className="mb-5">
+    <h2 className="font-bold text-lg border-b mb-2">
+      Languages
+    </h2>
+
+    <div className="flex flex-wrap gap-2">
+      {languages.map((lang, index) => (
+        <span
+          key={index}
+          className="text-sm"
+        >
+          {typeof lang === "string" ? lang : lang.name}
+        </span>
+      ))}
+    </div>
+  </section>
+)}
+
+{/* Achievements */}
+{achievements.length > 0 && (
+  <section>
+    <h2 className="font-bold text-lg border-b mb-2">
+      Achievements
+    </h2>
+
+    <ul className="list-disc pl-5">
+      {achievements.map((item, index) => (
+        <li key={index} className="text-sm">
+          {typeof item === "string" ? item : item.title}
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+
 </div>
 
 

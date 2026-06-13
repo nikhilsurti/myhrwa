@@ -111,7 +111,41 @@ export default function Template14({ data }) {
           <h2 className="font-bold text-xl">
             Product Experience
           </h2>
+        
         {experiences.map((exp) => (
+        <div key={exp.id} className="mb-4">
+          <div className="flex justify-between">
+            <h3 className="font-semibold">
+              {exp.role}
+            </h3>
+
+            <span className="text-sm">
+              {exp.currentCompany
+                ? `${exp.startDate} - Present`
+                : `${exp.startDate} - ${exp.endDate}`}
+            </span>
+          </div>
+
+          <p className="font-medium text-sm">
+            {exp.company}
+          </p>
+         {exp.location && (
+  <p className="text-xs text-gray-500">
+    📍 {exp.location}
+  </p>
+)}
+
+{exp.employmentType && (
+  <p className="text-xs text-gray-500">
+    {exp.employmentType}
+  </p>
+)}
+          <p className="text-sm whitespace-pre-line mt-1">
+            {exp.desc}
+          </p>
+        </div>
+      ))}
+        {/* {experiences.map((exp) => (
   <div key={exp.id} className="mt-4">
     <strong>{exp.role}</strong>
 
@@ -129,7 +163,7 @@ export default function Template14({ data }) {
       {exp.desc}
     </p>
   </div>
-))}
+))} */}
           
         </div>
       )} 
@@ -138,7 +172,7 @@ export default function Template14({ data }) {
       {projects.length > 0 && (
         <div className="mt-8">
           <h2 className="font-bold text-xl">
-            Key Products
+            Projects
           </h2>
 
           {projects.map((project) => (
@@ -147,6 +181,12 @@ export default function Template14({ data }) {
               <p className="text-sm text-gray-700">
                 {project.description}
               </p>
+            {(project.startDate || project.endDate) && (
+  <p className="text-xs text-gray-500">
+    {project.startDate}
+    {project.endDate && ` - ${project.endDate}`}
+  </p>
+)}
             </div>
           ))}
         </div>
@@ -158,13 +198,35 @@ export default function Template14({ data }) {
           <h2 className="font-bold text-xl">
             Education
           </h2>
-
           {educations.map((edu) => (
+        <div key={edu.id} className="mb-3">
+          <div className="flex justify-between">
+            <h3 className="font-semibold">
+              {edu.degree}
+            </h3>
+
+            <span className="text-sm">
+              {edu.startDate} - {edu.endDate}
+            </span>
+          </div>
+
+          <p className="text-sm">
+            {edu.school}
+          </p>
+
+          {edu.cgpa && (
+            <p className="text-sm">
+              CGPA: {edu.cgpa}
+            </p>
+          )}
+        </div>
+      ))}
+          {/* {educations.map((edu) => (
             <div key={edu.id} className="mt-3">
               <strong>{edu.degree}</strong>
               <p className="text-sm">{edu.school}</p>
             </div>
-          ))}
+          ))} */}
         </div>
       )}
 
@@ -187,45 +249,75 @@ export default function Template14({ data }) {
           <h2 className="font-bold text-xl">
             Certifications
           </h2>
-
           {certifications.map((cert) => (
+  <div key={cert.id} className="mb-2">
+
+    <p className="text-sm font-medium">
+      {cert.name}
+    </p>
+
+    {cert.issuer && (
+      <p className="text-xs text-gray-600">
+        {cert.issuer}
+      </p>
+    )}
+
+    {cert.date && (
+      <p className="text-xs text-gray-500">
+        {cert.date}
+      </p>
+    )}
+
+    {cert.link && (
+      <p className="text-xs break-all text-blue-600">
+        {cert.link}
+      </p>
+    )}
+
+  </div>
+))}
+          {/* {certifications.map((cert) => (
             <p key={cert.id} className="text-sm">
               • {cert.name}
             </p>
-          ))}
+          ))} */}
         </div>
       )}
 
-      {/* Achievements */}
-      {achievements.length > 0 && (
-        <div className="mt-8">
-          <h2 className="font-bold text-xl">
-            Achievements
-          </h2>
+      
+      {/* LANGUAGES */}
+{languages.length > 0 && (
+  <div className="mt-8">
+    <h2 className="font-bold text-xl">
+      Languages
+    </h2>
 
-          <ul className="list-disc pl-5 text-sm">
-            {achievements.map((item, index) => (
-              <li key={index}>
-                {item.title}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+    <div className="flex flex-wrap gap-2 mt-2">
+      {languages.map((lang, index) => (
+        <span key={index} className="text-sm">
+          {typeof lang === "string" ? lang : lang.name}
+        </span>
+      ))}
+    </div>
+  </div>
+)}
 
-      {/* Languages */}
-      {languages.length > 0 && (
-        <div className="mt-8">
-          <h2 className="font-bold text-xl">
-            Languages
-          </h2>
+{/* ACHIEVEMENTS */}
+{achievements.length > 0 && (
+  <div className="mt-8">
+    <h2 className="font-bold text-xl">
+      Achievements
+    </h2>
 
-          <p className="text-sm">
-            {languages.map((l) => l.name).join(", ")}
-          </p>
-        </div>
-      )}
-
+    <ul className="list-disc pl-5 mt-2">
+      {achievements.map((item, index) => (
+        <li key={index} className="text-sm">
+          {typeof item === "string" ? item : item.title}
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
     </div>
   );
 }

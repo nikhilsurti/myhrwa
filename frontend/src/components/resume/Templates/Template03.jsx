@@ -133,7 +133,31 @@ export default function Template03({ data }) {
             Education
           </h2>
 
-          {educations.map((edu) => (
+          
+           {educations.map((edu) => (
+        <div key={edu.id} className="mb-3">
+          <div className="flex justify-between">
+            <h3 className="font-semibold">
+              {edu.degree}
+            </h3>
+
+            <span className="text-sm">
+              {edu.startDate} - {edu.endDate}
+            </span>
+          </div>
+
+          <p className="text-sm">
+            {edu.school}
+          </p>
+
+          {edu.cgpa && (
+            <p className="text-sm">
+              CGPA: {edu.cgpa}
+            </p>
+          )}
+        </div>
+      ))}
+          {/* {educations.map((edu) => (
             <div key={edu.id} className="mb-3">
               <strong>{edu.school}</strong>
               <p>{edu.degree}</p>
@@ -141,7 +165,7 @@ export default function Template03({ data }) {
                 {edu.startDate} - {edu.endDate}
               </p>
             </div>
-          ))}
+          ))} */}
         </section>
       )}
 
@@ -153,7 +177,42 @@ export default function Template03({ data }) {
           <h2 className="uppercase font-bold border-b mb-2">
             Experience
           </h2>
+        
         {experiences.map((exp) => (
+        <div key={exp.id} className="mb-4">
+          <div className="flex justify-between">
+            <h3 className="font-semibold">
+              {exp.role}
+            </h3>
+
+            <span className="text-sm">
+              {exp.currentCompany
+                ? `${exp.startDate} - Present`
+                : `${exp.startDate} - ${exp.endDate}`}
+            </span>
+          </div>
+
+          <p className="font-medium text-sm">
+            {exp.company}
+          </p>
+         {exp.location && (
+  <p className="text-xs text-gray-500">
+    📍 {exp.location}
+  </p>
+)}
+
+{exp.employmentType && (
+  <p className="text-xs text-gray-500">
+    {exp.employmentType}
+  </p>
+)}
+          <p className="text-sm whitespace-pre-line mt-1">
+            {exp.desc}
+          </p>
+        </div>
+      ))}
+        
+        {/* {experiences.map((exp) => (
   <div key={exp.id} className="mb-3">
     <strong>{exp.role}</strong>
 
@@ -168,7 +227,7 @@ export default function Template03({ data }) {
     <p className="text-sm">{exp.desc}</p>
   </div>
          
-          ))}
+          ))} */}
         </section>
       )}
 
@@ -194,6 +253,12 @@ export default function Template03({ data }) {
             <div key={project.id} className="mb-3">
               <strong>{project.title}</strong>
               <p>{project.description}</p>
+            {(project.startDate || project.endDate) && (
+  <p className="text-xs text-gray-500">
+    {project.startDate}
+    {project.endDate && ` - ${project.endDate}`}
+  </p>
+)}
             </div>
           ))}
         </section>
@@ -206,16 +271,81 @@ export default function Template03({ data }) {
             Certifications
           </h2>
 
-          {certifications.map((cert) => (
+         {certifications.map((cert) => (
+  <div key={cert.id} className="mb-2">
+
+    <p className="text-sm font-medium">
+      {cert.name}
+    </p>
+
+    {cert.issuer && (
+      <p className="text-xs text-gray-600">
+        {cert.issuer}
+      </p>
+    )}
+
+    {cert.date && (
+      <p className="text-xs text-gray-500">
+        {cert.date}
+      </p>
+    )}
+
+    {cert.link && (
+      <p className="text-xs break-all text-blue-600">
+        {cert.link}
+      </p>
+    )}
+
+  </div>
+))}
+         
+          {/* {certifications.map((cert) => (
             <p key={cert.id} className="text-sm">
               • {cert.name}
             </p>
-          ))}
+          ))} */}
         </section>
       )}
+      
 
       {/* Languages */}
-      {languages.length > 0 && (
+{languages.length > 0 && (
+  <section className="mb-5">
+    <h2 className="font-bold text-lg border-b mb-2">
+      Languages
+    </h2>
+
+    <div className="flex flex-wrap gap-2">
+      {languages.map((lang, index) => (
+        <span
+          key={index}
+          className="text-sm"
+        >
+          {typeof lang === "string" ? lang : lang.name}
+        </span>
+      ))}
+    </div>
+  </section>
+)}
+
+{/* Achievements */}
+{achievements.length > 0 && (
+  <section>
+    <h2 className="font-bold text-lg border-b mb-2">
+      Achievements
+    </h2>
+
+    <ul className="list-disc pl-5">
+      {achievements.map((item, index) => (
+        <li key={index} className="text-sm">
+          {typeof item === "string" ? item : item.title}
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+      {/* Languages */}
+      {/* {languages.length > 0 && (
         <section className="mb-5">
           <h2 className="uppercase font-bold border-b mb-2">
             Languages
@@ -225,10 +355,10 @@ export default function Template03({ data }) {
             {languages.map((lang) => lang.name).join(", ")}
           </p>
         </section>
-      )}
+      )} */}
 
       {/* Achievements */}
-      {achievements.length > 0 && (
+      {/* {achievements.length > 0 && (
         <section>
           <h2 className="uppercase font-bold border-b mb-2">
             Achievements
@@ -242,7 +372,7 @@ export default function Template03({ data }) {
             ))}
           </ul>
         </section>
-      )}
+      )} */}
 
     </div>
   );
