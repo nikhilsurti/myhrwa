@@ -100,7 +100,21 @@ h1{
     <br>
 
     {{ exp.company_name }}
+   <br>
 
+{% if exp.location %}
+<span class="small">
+    📍 {{ exp.location }}
+</span>
+<br>
+{% endif %}
+
+{% if exp.employment_type %}
+<span class="small">
+    {{ exp.employment_type }}
+</span>
+<br>
+{% endif %}
     <br>
 
     <span class="small">
@@ -150,7 +164,11 @@ h1{
     <span class="small">
         {{ edu.start_date }} - {{ edu.end_date }}
     </span>
-
+  {% if edu.cgpa %}
+<p class="small">
+    CGPA: {{ edu.cgpa }}
+</p>
+{% endif %}
 </div>
 {% endfor %}
 ```
@@ -189,6 +207,21 @@ h1{
 
     <strong>{{ project.title }}</strong>
 
+{% if project.description %}
+<p>{{ project.description }}</p>
+{% endif %}
+
+{% if project.start_date or project.end_date %}
+<p class="small">
+    {{ project.start_date }}
+    {% if project.end_date %}
+        - {{ project.end_date }}
+    {% endif %}
+</p>
+{% endif %}
+    
+    <!-- <strong>{{ project.title }}</strong>
+
     {% if project.description %}
     <p>{{ project.description }}</p>
     {% endif %}
@@ -199,7 +232,7 @@ h1{
 
 </div>
 {% endfor %}
-```
+``` -->
 
 </div>
 {% endif %}
@@ -212,7 +245,33 @@ h1{
     </div>
 
 ```
+
 {% for cert in resume.certifications.all %}
+
+<div class="item">
+
+    <strong>{{ cert.name }}</strong>
+
+    {% if cert.organization %}
+    <p>{{ cert.organization }}</p>
+    {% endif %}
+
+    {% if cert.issue_date %}
+    <p class="small">
+        {{ cert.issue_date }}
+    </p>
+    {% endif %}
+
+    {% if cert.credential_url %}
+    <p class="small">
+        {{ cert.credential_url }}
+    </p>
+    {% endif %}
+
+</div>
+
+{% endfor %}
+<!-- {% for cert in resume.certifications.all %}
 <p>
     {{ cert.name }} - {{ cert.organization }}
 </p>
@@ -220,7 +279,7 @@ h1{
 ```
 
 </div>
-{% endif %}
+{% endif %} -->
 
 {% if resume.languages.all %}
 

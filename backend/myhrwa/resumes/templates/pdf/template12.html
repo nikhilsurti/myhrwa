@@ -12,12 +12,13 @@ body {
     color: #111;
 }
 
+/* PAGE */
 .container {
     max-width: 21cm;
     min-height: 29.7cm;
     margin: auto;
     padding: 30px;
-    background: #fff0f6; /* pink-50 */
+    background: #fff0f6;
 }
 
 /* HEADER */
@@ -25,7 +26,7 @@ body {
     font-size: 40px;
     margin: 0;
     font-weight: 800;
-    color: #be185d; /* pink-700 */
+    color: #be185d;
 }
 
 .header p {
@@ -49,23 +50,23 @@ body {
 /* SKILLS */
 .skill {
     display: inline-block;
-    background: #fbcfe8; /* pink-200 */
+    background: #fbcfe8;
     padding: 4px 10px;
     margin: 3px;
     font-size: 12px;
     border-radius: 999px;
 }
 
-/* ITEMS */
+/* ITEM */
 .item {
-    margin-bottom: 12px;
+    margin-bottom: 14px;
 }
 
 .small {
     font-size: 12px;
     color: #555;
+    line-height: 1.4;
 }
-
 </style>
 
 </head>
@@ -115,51 +116,69 @@ body {
         {% for project in resume.projects.all %}
         <div class="item">
             <strong>{{ project.title }}</strong>
-            <p class="small">{{ project.description }}</p>
+
+            <p class="small">
+                {{ project.description }}
+            </p>
+
+            {% if project.start_date or project.end_date %}
+            <p class="small">
+                {{ project.start_date }}
+                {% if project.end_date %}
+                    - {{ project.end_date }}
+                {% endif %}
+            </p>
+            {% endif %}
         </div>
         {% endfor %}
     </div>
     {% endif %}
 
     <!-- EXPERIENCE -->
-    
-    {% for exp in resume.experiences.all %}
-<div class="item">
-
-    <strong>{{ exp.job_title }}</strong>
-
-    <p class="small">
-        {{ exp.company_name }}
-    </p>
-
-    <p class="small">
-        {{ exp.start_date }} -
-        {% if exp.currently_working %}
-            Present
-        {% else %}
-            {{ exp.end_date }}
-        {% endif %}
-    </p>
-
-    <p class="small">
-        {{ exp.description }}
-    </p>
-
-</div>
-{% endfor %}
-    <!-- {% if resume.experiences.all %}
+    {% if resume.experiences.all %}
     <div class="section">
         <div class="section-title">Experience</div>
 
         {% for exp in resume.experiences.all %}
         <div class="item">
-            <strong>{{ exp.role }}</strong>
-            <p class="small">{{ exp.company }}</p>
-            <p class="small">{{ exp.description }}</p>
+
+            <strong>{{ exp.job_title }}</strong>
+
+            <div class="small">
+                {{ exp.company_name }}
+            </div>
+
+            {% if exp.location %}
+            <div class="small">
+                📍 {{ exp.location }}
+            </div>
+            {% endif %}
+
+            {% if exp.employment_type %}
+            <div class="small">
+                {{ exp.employment_type }}
+            </div>
+            {% endif %}
+
+            <div class="small">
+                {{ exp.start_date }}
+                {% if exp.currently_working %}
+                    - Present
+                {% else %}
+                    - {{ exp.end_date }}
+                {% endif %}
+            </div>
+
+            {% if exp.description %}
+            <p class="small">
+                {{ exp.description }}
+            </p>
+            {% endif %}
+
         </div>
         {% endfor %}
     </div>
-    {% endif %} -->
+    {% endif %}
 
     <!-- EDUCATION -->
     {% if resume.educations.all %}
@@ -168,8 +187,24 @@ body {
 
         {% for edu in resume.educations.all %}
         <div class="item">
+
             <strong>{{ edu.degree }}</strong>
-            <p class="small">{{ edu.school }}</p>
+            {% if edu.field_of_study %} - {{ edu.field_of_study }} {% endif %}
+
+            <div class="small">
+                {{ edu.school_name }}
+            </div>
+
+            <div class="small">
+                {{ edu.start_date }} - {{ edu.end_date }}
+            </div>
+
+            {% if edu.cgpa %}
+            <div class="small">
+                CGPA: {{ edu.cgpa }}
+            </div>
+            {% endif %}
+
         </div>
         {% endfor %}
     </div>
@@ -181,7 +216,29 @@ body {
         <div class="section-title">Certifications</div>
 
         {% for cert in resume.certifications.all %}
-            <p class="small">• {{ cert.name }}</p>
+        <div class="item">
+
+            <strong>{{ cert.name }}</strong>
+
+            {% if cert.organization %}
+            <div class="small">
+                {{ cert.organization }}
+            </div>
+            {% endif %}
+
+            {% if cert.issue_date %}
+            <div class="small">
+                {{ cert.issue_date }}
+            </div>
+            {% endif %}
+
+            {% if cert.credential_url %}
+            <div class="small">
+                {{ cert.credential_url }}
+            </div>
+            {% endif %}
+
+        </div>
         {% endfor %}
     </div>
     {% endif %}
