@@ -190,12 +190,12 @@ const [confirmPassword, setConfirmPassword] = useState("");
 // });
   const [resumeData, setResumeData] = useState({
     personal: {
-      fullName: "Karthik Chaudhary",
-      title: "Senior Software Engineer",
-      email: "karthik@example.com",
-      phone: "+91 98765 43210",
-      location: "New Delhi, India",
-      summary: "Result-driven Software Engineer with 4+ years of experience in building modern web applications. Specialized in React, Node.js, and cloud technologies. Proven track record of optimizing page load speed by 40%.",
+      fullName: "",
+      title: "",
+      email: "",
+      phone: "",
+      location: "",
+      summary: "",
       aiSummarySuggestion: "",
     },
     experiences: [
@@ -214,7 +214,7 @@ const [confirmPassword, setConfirmPassword] = useState("");
       startDate: "",
       endDate: "",
       currentCompany: false,
-       desc: "Built modern React dashboards reducing initial bundle size by 35%.\n• Collaborated with UX team to integrate fluid Tailwind designs.\n• Led a team of 3 developers to deliver scalable cloud integrations."
+       desc: ""
         
     }
       
@@ -227,26 +227,20 @@ const [confirmPassword, setConfirmPassword] = useState("");
         // degree: "B.Tech in Computer Science",
         // duration: "2018 - 2022"
       id: 1,
-    school: "IIT Delhi",
-    degree: "B.Tech",
-    fieldOfStudy: "Computer Science",
-    location: "Delhi, India",
-    startDate: "2018",
-    endDate: "2022",
-    cgpa: "8.5"
+    school: "",
+    degree: "",
+    fieldOfStudy: "",
+    location: "",
+    startDate: "",
+    endDate: "",
+    cgpa: ""
       
       }
     ],
-    skills: ["React", "JavaScript", "Tailwind CSS", "Node.js", "SQL", "Git"],
-    achievements: [
-      "Winner of National Smart India Hackathon 2021",
-      "Optimized enterprise product rendering performance by 40%"
-    ],
-    languages: ["English (Professional)", "Hindi (Native)"],
-    activities: [
-      "Technical Writer - Medium (5k+ readers)",
-      "Open Source Contributor - React ecosystem"
-    ],
+    skills: [],
+    achievements: [],
+    languages: [],
+    activities: [],
     certifications: [
   {
     id: 1,
@@ -311,14 +305,23 @@ useEffect(() => {
 
     skills: parsedResume.skills || [],
 
+    
     certifications:
-      parsedResume.certifications?.map((cert, index) => ({
-        id: index + 1,
-        name: cert,
-        issuer: "",
-        date: "",
-        link: "",
-      })) || [],
+    parsedResume.certifications?.map((cert, index) => ({
+    id: index + 1,
+    name: cert.name || "",
+    issuer: cert.issuer || "",
+    date: cert.date || "",
+    link: cert.link || "",
+  })) || [],
+    // certifications:
+    //   parsedResume.certifications?.map((cert, index) => ({
+    //     id: index + 1,
+    //     name: cert,
+    //     issuer: "",
+    //     date: "",
+    //     link: "",
+    //   })) || [],
 
     projects:
       parsedResume.projects?.map((project, index) => ({
@@ -355,14 +358,26 @@ useEffect(() => {
   summary: resumeData.personal.summary,
 
   educations: resumeData.educations.map((edu) => ({
-    school_name: edu.school,
-    degree: edu.degree,
-    field_of_study: edu.fieldOfStudy,
-    start_date: edu.startDate,
-    end_date: edu.endDate,
-    description: "",
-  })),
+  school_name: edu.school,
+  degree: edu.degree,
+  field_of_study: edu.fieldOfStudy,
 
+  cgpa: edu.cgpa,
+
+  start_date: edu.startDate,
+  end_date: edu.endDate,
+  description: "",
+})),  
+  // educations: resumeData.educations.map((edu) => ({
+  //   school_name: edu.school,
+  //   degree: edu.degree,
+  //   field_of_study: edu.fieldOfStudy,
+  //   start_date: edu.startDate,
+  //   end_date: edu.endDate,
+  //   description: "",
+  // })),
+
+  
   experiences: resumeData.experiences
   .filter(
     (exp) =>
@@ -373,11 +388,33 @@ useEffect(() => {
   .map((exp) => ({
     company_name: exp.company,
     job_title: exp.role,
+
+    location: exp.location,
+    employment_type: exp.employmentType,
+
     start_date: exp.startDate,
     end_date: exp.endDate || null,
+
     currently_working: exp.currentCompany,
+
     description: exp.desc,
   })),
+  
+  // experiences: resumeData.experiences
+  // .filter(
+  //   (exp) =>
+  //     exp.company?.trim() &&
+  //     exp.role?.trim() &&
+  //     exp.startDate
+  // )
+  // .map((exp) => ({
+  //   company_name: exp.company,
+  //   job_title: exp.role,
+  //   start_date: exp.startDate,
+  //   end_date: exp.endDate || null,
+  //   currently_working: exp.currentCompany,
+  //   description: exp.desc,
+  // })),
   // experiences: resumeData.experiences.map((exp) => ({
   //   company_name: exp.company,
   //   job_title: exp.role,
@@ -391,14 +428,27 @@ useEffect(() => {
     name: skill,
   })),
 
+  
   projects: resumeData.projects
   .filter((proj) => proj.title?.trim())
   .map((proj) => ({
     title: proj.title,
     description: proj.description,
+
+    start_date: proj.startDate || null,
+    end_date: proj.endDate || null,
+
     // project_link: proj.link,
     // github_link: "",
   })),
+  // projects: resumeData.projects
+  // .filter((proj) => proj.title?.trim())
+  // .map((proj) => ({
+  //   title: proj.title,
+  //   description: proj.description,
+  //   // project_link: proj.link,
+  //   // github_link: "",
+  // })),
   // projects: resumeData.projects.map((proj) => ({
   //   title: proj.title,
   //   description: proj.description,
