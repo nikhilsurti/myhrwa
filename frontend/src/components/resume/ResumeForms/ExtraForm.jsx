@@ -10,10 +10,10 @@ export default function ExtraForm({
   setLangInput,
   addLanguage,
   removeLanguage,
-  actInput,
-  setActInput,
-  addActivity,
-  removeActivity,
+  // actInput,
+  // setActInput,
+  // addActivity,
+  // removeActivity,
 }) {
   return (
     
@@ -50,7 +50,7 @@ export default function ExtraForm({
                   </div>
                 </div>
 
-                <div className="space-y-3">
+                {/* <div className="space-y-3">
                   <h4 className="text-xs font-bold text-slate-900 border-l-2 border-indigo-600 pl-2 uppercase">Activities & Interests</h4>
                   <form onSubmit={addActivity} className="flex gap-2">
                     <input type="text" value={actInput} onChange={(e) => setActInput(e.target.value)} placeholder="e.g. Technical Writing" className="flex-1 px-3 py-2 border border-slate-200 rounded-lg text-xs" />
@@ -64,7 +64,7 @@ export default function ExtraForm({
                       </div>
                     ))}
                   </div>
-                </div>
+                </div> */}
               </div>
     
   );
