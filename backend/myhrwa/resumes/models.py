@@ -474,7 +474,12 @@ class Education(models.Model):
     school_name = models.CharField(max_length=255)
     degree = models.CharField(max_length=255)
     field_of_study = models.CharField(max_length=255, blank=True, null=True)
-
+    
+    cgpa = models.CharField(
+    max_length=50,
+    blank=True,
+    null=True
+)
     start_date = models.DateField()
     end_date = models.DateField(blank=True, null=True)
 
@@ -497,6 +502,18 @@ class Experience(models.Model):
     company_name = models.CharField(max_length=255)
     job_title = models.CharField(max_length=255)
 
+    location = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True
+    )
+
+    employment_type = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True
+    )
+
     start_date = models.DateField()
     end_date = models.DateField(blank=True, null=True)
 
@@ -506,6 +523,27 @@ class Experience(models.Model):
 
     def __str__(self):
         return self.company_name
+
+
+# class Experience(models.Model):
+#     resume = models.ForeignKey(
+#         Resume,
+#         on_delete=models.CASCADE,
+#         related_name='experiences'
+#     )
+
+#     company_name = models.CharField(max_length=255)
+#     job_title = models.CharField(max_length=255)
+
+#     start_date = models.DateField()
+#     end_date = models.DateField(blank=True, null=True)
+
+#     currently_working = models.BooleanField(default=False)
+
+#     description = models.TextField(blank=True, null=True)
+
+#     def __str__(self):
+#         return self.company_name
 
 
 # =========================
@@ -537,11 +575,30 @@ class Project(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
 
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+
     project_link = models.URLField(blank=True, null=True)
     github_link = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return self.title
+
+# class Project(models.Model):
+#     resume = models.ForeignKey(
+#         Resume,
+#         on_delete=models.CASCADE,
+#         related_name='projects'
+#     )
+
+#     title = models.CharField(max_length=255)
+#     description = models.TextField(blank=True, null=True)
+
+#     project_link = models.URLField(blank=True, null=True)
+#     github_link = models.URLField(blank=True, null=True)
+
+#     def __str__(self):
+#         return self.title
 
 
 # =========================
